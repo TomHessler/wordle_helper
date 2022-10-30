@@ -94,8 +94,11 @@ def get_result(event=None):
         text=f"Number of possible answers: {len(word_list)}", font=("Verdana", 10)
     )
     
+    label_suggested_word.config(
+        text=f"Suggested guess: {suggest_word(word_list)}", font=("Verdana", 10)
+    )
+    
     text.insert(tk.END, "".join(word_list))
-    print(suggest_word(word_list))
 
 
 def reset():
@@ -113,13 +116,14 @@ def reset():
     entry_grey.delete(0, "end")
     text.delete(1.0, tk.END)
     label_count_words.config(text="")
+    label_suggested_word.config(text="")
 
 
 if __name__ == "__main__":
     window = tk.Tk()
 
     window.title("Wordle Helper")
-    window.geometry("400x600")
+    window.geometry("400x610")
 
     label1 = tk.Label(
         window, text="Enter letters in correct positions:", font=("Verdana", 15)
@@ -169,7 +173,10 @@ if __name__ == "__main__":
     scrollbar.place(x=335, y=380, height=185)
 
     label_count_words = tk.Label(window)
-    label_count_words.place(x=50, y=570)
+    label_count_words.place(x=50, y=565)
+    
+    label_suggested_word = tk.Label(window)
+    label_suggested_word.place(x=50, y=585)
 
     button = tk.Button(window, width=8, height=1, text="Get Words", command=get_result)
     button.place(x=200 + 10, y=325)
