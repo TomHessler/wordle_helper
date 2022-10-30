@@ -13,12 +13,13 @@ def yellow(letter, index, word_list):
 def green(letter, index, word_list):
     return [word for word in word_list if word[index] == letter]
 
+
 def all_unique(word):
     word = sorted(word)
-    for i in range(len(word)-1):
-        if (word[i] == word[i + 1]) :
+    for i in range(len(word) - 1):
+        if word[i] == word[i + 1]:
             return False
-         
+
     return True
 
 
@@ -26,24 +27,26 @@ def return_distinct_five_letter_words(word_list):
     new_list = []
     for word in word_list:
         if all_unique(word):
-            new_list.append(word.strip('\n'))
+            new_list.append(word.strip("\n"))
     return new_list
+
 
 def count_letters(word_list):
     count = {}
     for word in word_list:
-        for letter in word.strip('\n'):
+        for letter in word.strip("\n"):
             if letter in count.keys():
                 count[letter] += 1
             else:
                 count[letter] = 1
     return count
-        
+
+
 def rank_words(word_list):
     letter_count = count_letters(word_list)
-    word_ranking = {word:0 for word in word_list}
+    word_ranking = {word: 0 for word in word_list}
     for word in word_list:
-        for letter in word.strip('\n'):
+        for letter in word.strip("\n"):
             word_ranking[word] += letter_count[letter]
     return dict(sorted(word_ranking.items(), key=lambda item: item[1]))
 
@@ -93,11 +96,11 @@ def get_result(event=None):
     label_count_words.config(
         text=f"Number of possible answers: {len(word_list)}", font=("Verdana", 10)
     )
-    
+
     label_suggested_word.config(
         text=f"Suggested guess: {suggest_word(word_list)}", font=("Verdana", 10)
     )
-    
+
     text.insert(tk.END, "".join(word_list))
 
 
@@ -174,7 +177,7 @@ if __name__ == "__main__":
 
     label_count_words = tk.Label(window)
     label_count_words.place(x=50, y=565)
-    
+
     label_suggested_word = tk.Label(window)
     label_suggested_word.place(x=50, y=585)
 
