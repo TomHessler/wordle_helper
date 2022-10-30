@@ -49,9 +49,8 @@ def get_result():
     label_count_words.config(text=f"Number of possible answers: {len(word_list)}",font = ('Verdana',10))
     
     text.insert(END, words)
-
-def GUI():
-
+    
+if __name__ == '__main__':
     window = Tk()
     
     window.title('Wordle Helper')
@@ -95,10 +94,6 @@ def GUI():
     
     entry_grey = Entry(window,bg="grey",font = ('Verdana',30))
     entry_grey.place(x=50,y=250,width=300,height=50)
-        
-    
-    button = Button(window,width=8,height=1,text ="Get Words",command = get_result)
-    button.place(x=165,y=325)
     
     text = Text(window)
     text.place(x=50,y=380,width=300,height=185)
@@ -112,7 +107,7 @@ def GUI():
     label_count_words = Label(window)
     label_count_words.place(x=50,y=570)
     
-    window.mainloop()
+    button = Button(window,width=8,height=1,text ="Get Words",command = get_result)
+    button.place(x=165,y=325)
     
-if __name__ == '__main__':
-    GUI()
+    window.mainloop()
