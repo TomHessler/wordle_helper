@@ -71,10 +71,16 @@ entry_grey = Entry(window,bg="grey",font = ('Verdana',30))
 entry_grey.place(x=50,y=250,width=300,height=50)
     
 
-button = Button(window,width=7,height=1,text ="Get Words",command = get_result)
-button.place(x=173,y=350)
+button = Button(window,width=8,height=1,text ="Get Words",command = get_result)
+button.place(x=165,y=325)
 
 text = Text(window)
-text.place(x=50,y=420,width=300,height=160)
+text.place(x=50,y=380,width=300,height=185)
+
+scrollbar = Scrollbar(orient=VERTICAL)
+    
+scrollbar.config(command=text.yview)
+text.config(yscrollcommand=scrollbar.set)
+scrollbar.place(x=335,y=380,height=180)
 
 window.mainloop()
