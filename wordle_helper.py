@@ -5,10 +5,6 @@ def grey(letter, word_list):
     return [word for word in word_list if not letter in word]
 
 
-# def yellow(letter, word_list):
-#     return [word for word in word_list if letter in word]
-
-
 def yellow(letter, index, word_list):
     new_list = [word for word in word_list if letter in word]
     return [word for word in new_list if not word[index] == letter]
@@ -33,7 +29,7 @@ def get_result():
         entry4.get().strip(),
         entry5.get().strip(),
     ]
-    # yellow_letters = entry_yellow.get().strip()
+
     yellow_letters = [
         entry6.get().strip(),
         entry7.get().strip(),
@@ -46,9 +42,6 @@ def get_result():
     for index, green_letter in enumerate(green_letters):
         if green_letter:
             word_list = green(green_letter.lower(), index, word_list)
-
-    # for yellow_letter in yellow_letters:
-    #     word_list = yellow(yellow_letter, word_list)
 
     for index, yellow_letter in enumerate(yellow_letters):
         if yellow_letter:
@@ -102,9 +95,6 @@ if __name__ == "__main__":
     entry8.place(x=200 - 25, y=150, width=50, height=50)
     entry9.place(x=250 - 25, y=150, width=50, height=50)
     entry10.place(x=300 - 25, y=150, width=50, height=50)
-
-    # entry_yellow = Entry(window,bg="yellow",font = ('Verdana',30))
-    # entry_yellow.place(x=50,y=150,width=300,height=50)
 
     label3 = tk.Label(window, text="Enter grey letters:", font=("Verdana", 15))
     label3.place(x=100, y=210)
