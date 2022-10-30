@@ -14,7 +14,7 @@ def green(letter, index, word_list):
     return [word for word in word_list if word[index] == letter]
 
 
-def get_result():
+def get_result(event=None):
     text.delete(1.0, tk.END)
     word_list = []
     with open("words.txt", encoding='UTF-8') as word_list_f:
@@ -23,39 +23,56 @@ def get_result():
         word_list_f.close()
 
     green_letters = [
-        entry1.get().strip(),
-        entry2.get().strip(),
-        entry3.get().strip(),
-        entry4.get().strip(),
-        entry5.get().strip(),
+        entry1.get().strip().lower(),
+        entry2.get().strip().lower(),
+        entry3.get().strip().lower(),
+        entry4.get().strip().lower(),
+        entry5.get().strip().lower(),
     ]
 
     yellow_letters = [
-        entry6.get().strip(),
-        entry7.get().strip(),
-        entry8.get().strip(),
-        entry9.get().strip(),
-        entry10.get().strip(),
+        entry6.get().strip().lower(),
+        entry7.get().strip().lower(),
+        entry8.get().strip().lower(),
+        entry9.get().strip().lower(),
+        entry10.get().strip().lower(),
     ]
-    grey_letters = entry_grey.get().strip()
+    grey_letters = entry_grey.get().strip().lower()
 
     for index, green_letter in enumerate(green_letters):
         if green_letter:
-            word_list = green(green_letter.lower(), index, word_list)
+            word_list = green(green_letter, index, word_list)
 
     for index, yellow_letter in enumerate(yellow_letters):
         if yellow_letter:
             for letter in yellow_letter:
-                word_list = yellow(letter.lower(), index, word_list)
+                word_list = yellow(letter, index, word_list)
 
     for grey_letter in grey_letters:
-        word_list = grey(grey_letter.lower(), word_list)
+        word_list = grey(grey_letter, word_list)
 
     label_count_words.config(
         text=f"Number of possible answers: {len(word_list)}", font=("Verdana", 10)
     )
 
     text.insert(tk.END, ''.join(word_list))
+
+
+def reset():
+    entry1.delete(0, 'end')
+    entry1.delete(0, 'end')
+    entry2.delete(0, 'end')
+    entry3.delete(0, 'end')
+    entry4.delete(0, 'end')
+    entry5.delete(0, 'end')
+    entry6.delete(0, 'end')
+    entry7.delete(0, 'end')
+    entry8.delete(0, 'end')
+    entry9.delete(0, 'end')
+    entry10.delete(0, 'end')
+    entry_grey.delete(0, 'end')
+    text.delete(1.0, tk.END)
+    label_count_words.config(text='')
 
 
 if __name__ == "__main__":
@@ -109,12 +126,18 @@ if __name__ == "__main__":
 
     scrollbar.config(command=text.yview)
     text.config(yscrollcommand=scrollbar.set)
-    scrollbar.place(x=335, y=380, height=180)
+    scrollbar.place(x=335, y=380, height=185)
 
     label_count_words = tk.Label(window)
     label_count_words.place(x=50, y=570)
 
     button = tk.Button(window, width=8, height=1, text="Get Words", command=get_result)
-    button.place(x=165, y=325)
-
+    button.place(x=200+10, y=325)
+    
+    reset_button = tk.Button(window, width=8, height=1, text="Reset", command=reset)
+    reset_button.place(x=100+10, y=325)
+    
+    window.bind('<Return>', get_result)
+    
+    
     window.mainloop()
