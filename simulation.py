@@ -1,6 +1,27 @@
 from wordle_helper import grey, yellow, green, suggest_word
 
 
+def get_optimal_guess(word_list):
+    expected_outcome_for_word = {}
+    for word in word_list:
+        word = word.strip('\n')
+        expected_outcome_for_word[word] = get_expected_outcome(word, word_list)
+    return min(expected_outcome_for_word, key = expected_outcome_for_word.get)
+
+def get_remaining_words(guess, word_list, answer):
+    color_list = result(guess, answer)
+    for index, color in enumerate(color_list):
+        word_list = color(guess[index], index, word_list)
+    return word_list
+
+def get_expected_outcome(guess, word_list):
+    total = 0
+    for answer in word_list:
+        if not answer == guess:
+            total += len(get_remaining_words(guess, word_list, answer))
+    return total / len(word_list)
+
+
 def result(guess, answer):
     result = []
     for index, letter in enumerate(guess):
@@ -21,7 +42,7 @@ def simulate_game(answer, word_list):
         if trials>6:
             fails += 1
             break
-        guess = suggest_word(word_list).strip("\n")
+        guess = get_optimal_guess(word_list).strip("\n")
         if guess == answer.strip('\n'):
             break
         color_list = result(guess, answer)
