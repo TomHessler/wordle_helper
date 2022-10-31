@@ -1,17 +1,4 @@
-from wordle_helper import grey, yellow, green, suggest_word
-
-
-def result(guess, answer):
-    result = []
-    for index, letter in enumerate(guess):
-        if letter not in answer:
-            result.append(grey)
-        elif answer[index] == letter:
-            result.append(green)
-        else:
-            result.append(yellow)
-    return result
-
+from wordle_helper import suggest_word, result
 
 def simulate_game(answer, word_list):
     trials = 0
@@ -50,11 +37,6 @@ if __name__ == "__main__":
     with open("words.txt", encoding="UTF-8") as word_list_f:
         for word in word_list_f:
             answer_list.append(word)
-        word_list_f.close()
-
-    with open("all_words.txt", encoding="UTF-8") as word_list_f:
-        for word in word_list_f:
-            word_list.append(word)
         word_list_f.close()
 
     avg_number_guesses, success_rate = simulation(answer_list, answer_list)

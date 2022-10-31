@@ -1,5 +1,35 @@
 import tkinter as tk
 
+def get_optimal_guess(word_list):
+    expected_outcome_for_word = {}
+    for word in word_list:
+        word = word.strip('\n')
+        expected_outcome_for_word[word] = get_expected_outcome(word, word_list)
+    return min(expected_outcome_for_word, key = expected_outcome_for_word.get)
+
+def get_remaining_words(guess, word_list, answer):
+    color_list = result(guess, answer)
+    for index, color in enumerate(color_list):
+        word_list = color(guess[index], index, word_list)
+    return word_list
+
+def result(guess, answer):
+    result = []
+    for index, letter in enumerate(guess):
+        if letter not in answer:
+            result.append(grey)
+        elif answer[index] == letter:
+            result.append(green)
+        else:
+            result.append(yellow)
+    return result
+
+def get_expected_outcome(guess, word_list):
+    total = 0
+    for answer in word_list:
+        if not answer == guess:
+            total += len(get_remaining_words(guess, word_list, answer))
+    return total / len(word_list)
 
 def grey(letter, index, word_list):
     return [word for word in word_list if not letter in word]
@@ -42,11 +72,13 @@ def rank_words(word_list):
 
 
 def suggest_word(word_list):
+    if len(word_list) == 2309: return 'salet'
+    elif len(word_list) < 300: return get_optimal_guess(word_list)
     word_ranking = rank_words(remove_duplicate_letters(word_list))
     return list(word_ranking.keys())[-1]
 
 
-def get_result(event=None):
+def update(event=None):
     text.delete(1.0, tk.END)
     word_list = []
     with open("words.txt", encoding="UTF-8") as word_list_f:
@@ -171,12 +203,12 @@ if __name__ == "__main__":
     label_suggested_word = tk.Label(window)
     label_suggested_word.place(x=50, y=585)
 
-    button = tk.Button(window, width=8, height=1, text="Get Words", command=get_result)
+    button = tk.Button(window, width=8, height=1, text="Get Words", command=update)
     button.place(x=200 + 10, y=325)
 
     reset_button = tk.Button(window, width=8, height=1, text="Reset", command=reset)
     reset_button.place(x=100 + 10, y=325)
 
-    window.bind("<Return>", get_result)
+    window.bind("<Return>", update)
 
     window.mainloop()
