@@ -7,7 +7,7 @@ on:
   # [push]
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -43,15 +43,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install tkinter
-      # - name: Analysing the code with pylint
-      #   run: |
-      #     pylint $(git ls-files '*.py') --max-line-length 120
-      # - name: Fix No module named 'mpl_toolkits.basemap'
-      #   run: |
-      #     wget https://github.com/matplotlib/basemap/archive/refs/heads/master.zip;
-      #     unzip master.zip;
-      #     cd basemap-master/packages/basemap;
-      #     python3 -m pip install .;
+
       - name: Running tests
         run: |
           echo $(git ls-files 'test*.py' '*/test*.py')
