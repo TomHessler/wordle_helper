@@ -14,27 +14,17 @@ def green(letter, index, word_list):
     return [word for word in word_list if word[index] == letter]
 
 
-def all_unique(word):
-    word = sorted(word)
-    for i in range(len(word) - 1):
-        if word[i] == word[i + 1]:
-            return False
-
-    return True
-
-
-def return_distinct_five_letter_words(word_list):
+def remove_duplicate_letters(word_list):
     new_list = []
     for word in word_list:
-        if all_unique(word):
-            new_list.append(word.strip("\n"))
+        new_list.append((word,"".join(set(word.strip('\n')))))
     return new_list
 
 
 def count_letters(word_list):
     count = {}
     for word in word_list:
-        for letter in word.strip("\n"):
+        for letter in word[1]:
             if letter in count.keys():
                 count[letter] += 1
             else:
@@ -44,15 +34,15 @@ def count_letters(word_list):
 
 def rank_words(word_list):
     letter_count = count_letters(word_list)
-    word_ranking = {word: 0 for word in word_list}
+    word_ranking = {word[0]: 0 for word in word_list}
     for word in word_list:
-        for letter in word.strip("\n"):
-            word_ranking[word] += letter_count[letter]
+        for letter in word[1]:
+            word_ranking[word[0]] += letter_count[letter]
     return dict(sorted(word_ranking.items(), key=lambda item: item[1]))
 
 
 def suggest_word(word_list):
-    word_ranking = rank_words(return_distinct_five_letter_words(word_list))
+    word_ranking = rank_words(remove_duplicate_letters(word_list))
     return list(word_ranking.keys())[-1]
 
 
