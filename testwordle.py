@@ -1,5 +1,4 @@
-from wordle_helper import grey, green, yellow
-from optimal_word import get_optimal_guess, get_expected_outcome,get_remaining_words
+from wordle_helper import grey, green, yellow, suggest_word
 
 words = ['hello', 'phone','ghost','hallo','senap']
 
@@ -20,4 +19,4 @@ with open("wordtest.txt", encoding="UTF-8") as word_list_f:
         words.append(word)
     word_list_f.close()
 
-print(get_optimal_guess(words))
+print(suggest_word(words))
