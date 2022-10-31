@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-def grey(letter, word_list):
+def grey(letter, index, word_list):
     return [word for word in word_list if not letter in word]
 
 
@@ -81,7 +81,7 @@ def get_result(event=None):
                 word_list = yellow(letter, index, word_list)
 
     for grey_letter in grey_letters:
-        word_list = grey(grey_letter, word_list)
+        word_list = grey(grey_letter, index, word_list)
 
     label_count_words.config(
         text=f"Number of possible answers: {len(word_list)}", font=("Verdana", 10)
