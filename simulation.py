@@ -14,10 +14,12 @@ def result(guess, answer):
 
 
 def simulate_game(answer, word_list):
-    trials = 1
-    while len(word_list) > 1:
+    trials = 0
+    while True:
         trials += 1
         guess = suggest_word(word_list).strip("\n")
+        if guess == answer.strip('\n'):
+            break
         color_list = result(guess, answer)
         for index, color in enumerate(color_list):
             word_list = color(guess[index], index, word_list)
