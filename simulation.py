@@ -52,11 +52,6 @@ if __name__ == "__main__":
             answer_list.append(word)
         word_list_f.close()
 
-    with open("all_words.txt", encoding="UTF-8") as word_list_f:
-        for word in word_list_f:
-            word_list.append(word)
-        word_list_f.close()
-
     avg_number_guesses, success_rate = simulation(answer_list, answer_list)
 
     print(f"average number of guesses: {avg_number_guesses}")
