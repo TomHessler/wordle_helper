@@ -2,8 +2,8 @@ from wordle_helper import grey, green, yellow
 
 words = ['hello', 'phone','ghost','hallo','senap']
 
-assert grey('a', words) == ['hello', 'phone','ghost']
-assert grey('e', words) == ['ghost', 'hallo']
+assert grey('a',None, words) == ['hello', 'phone','ghost']
+assert grey('e',None, words) == ['ghost', 'hallo']
 print('grey success')
 assert yellow('e',1, words) == ['phone']
 assert yellow('a',2, words) == ['hallo','senap']
