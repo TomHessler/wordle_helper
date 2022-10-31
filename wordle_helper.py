@@ -81,7 +81,7 @@ def suggest_word(word_list):
 def update(event=None):
     text.delete(1.0, tk.END)
     word_list = []
-    with open("words.txt", encoding="UTF-8") as word_list_f:
+    with open("data/words.txt", encoding="UTF-8") as word_list_f:
         for word in word_list_f:
             word_list.append(word)
         word_list_f.close()
