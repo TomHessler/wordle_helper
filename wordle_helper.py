@@ -80,7 +80,7 @@ def suggest_word(word_list):
         return 'chevy'
     if word_list == ['bound\n', 'found\n', 'hound\n', 'mound\n', 'pound\n', 'wound\n']:
         return 'bumph'
-    if str(word_list) in salet_outcomes.keys() and len(word_list)>5:
+    if str(word_list) in salet_outcomes.keys() and len(word_list)>4:
         return salet_outcomes[str(word_list)]
     elif len(word_list) < 300: return get_optimal_guess(word_list)
     word_ranking = rank_words(remove_duplicate_letters(word_list))
