@@ -3,10 +3,12 @@ from wordle_helper import suggest_word, result
 def simulate_game(answer, word_list):
     trials = 0
     fails = 0
+    failed_answer = ''
     while True:
         trials += 1
         if trials>6:
             fails += 1
+            failed_answer = answer
             break
         guess = suggest_word(word_list).strip("\n")
         if guess == answer.strip('\n'):
@@ -14,19 +16,21 @@ def simulate_game(answer, word_list):
         color_list = result(guess, answer)
         for index, color in enumerate(color_list):
             word_list = color(guess[index], index, word_list)
-    return trials, fails
+    return trials, fails, failed_answer
 
 
 def simulation(word_list, answer_list):
     total_trails = 0
     total_fails = 0
+    failed_answers = []
     for answer in answer_list:
-        trials, fails = simulate_game(answer, word_list)
+        trials, fails, failed_answer = simulate_game(answer, word_list)
         total_trails += trials
         total_fails += fails
+        failed_answers.append(failed_answer)
     avg_number_guesses = total_trails / len(answer_list)
     success_rate = 1 - total_fails / len(answer_list)
-    return avg_number_guesses, success_rate
+    return avg_number_guesses, success_rate, failed_answers
 
 
 if __name__ == "__main__":
@@ -39,7 +43,11 @@ if __name__ == "__main__":
             answer_list.append(word)
         word_list_f.close()
 
-    avg_number_guesses, success_rate = simulation(answer_list, answer_list)
-
+    avg_number_guesses, success_rate, failed_answers = simulation(answer_list, answer_list)
+    failed_answers_clean = []
+    for answer in failed_answers:
+        if answer:
+            failed_answers_clean.append(answer.strip('\n'))
     print(f"average number of guesses: {avg_number_guesses}")
     print(f"success rate: {success_rate}")
+    print(f"failed answers: {failed_answers_clean}")

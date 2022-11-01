@@ -1,4 +1,5 @@
 import tkinter as tk
+import json
 
 def get_optimal_guess(word_list):
     expected_outcome_for_word = {}
@@ -73,6 +74,14 @@ def rank_words(word_list):
 
 def suggest_word(word_list):
     if len(word_list) == 2309: return 'salet'
+    with open('data/best_guess_for_salet_outcome.json') as json_file:
+        salet_outcomes = json.load(json_file)
+    if word_list == ['boxer\n', 'corer\n', 'cover\n', 'foyer\n', 'homer\n', 'hover\n', 'joker\n', 'mover\n', 'poker\n']:
+        return 'chevy'
+    if word_list == ['bound\n', 'found\n', 'hound\n', 'mound\n', 'pound\n', 'wound\n']:
+        return 'bumph'
+    if str(word_list) in salet_outcomes.keys() and len(word_list)>5:
+        return salet_outcomes[str(word_list)]
     elif len(word_list) < 300: return get_optimal_guess(word_list)
     word_ranking = rank_words(remove_duplicate_letters(word_list))
     return list(word_ranking.keys())[-1]
