@@ -14,7 +14,7 @@ print('green success')
 
 words = []
 
-with open("data/wordtest.txt", encoding="UTF-8") as word_list_f:
+with open("data/words.txt", encoding="UTF-8") as word_list_f:
     for word in word_list_f:
         words.append(word)
     word_list_f.close()
