@@ -23,11 +23,11 @@ def simulation(word_list, answer_list):
     total_trails = 0
     total_fails = 0
     failed_answers = []
-    trials_list = []
+    trials_list = {}
     for answer in answer_list:
         trials, fails, failed_answer = simulate_game(answer, word_list)
         total_trails += trials
-        trials_list.append(trials)
+        trials_list[answer] = trials
         total_fails += fails
         failed_answers.append(failed_answer)
     avg_number_guesses = total_trails / len(answer_list)
@@ -50,12 +50,11 @@ if __name__ == "__main__":
     for answer in failed_answers:
         if answer:
             failed_answers_clean.append(answer.strip('\n'))
-    count_max_trials = 0
-    for nr_trials in trials_list:
-        if nr_trials == 6:
-            count_max_trials += 1
+    max_try_answers = []
+    for answer, trials in trials_list.items():
+        if trials == 6:
+            max_try_answers.append(answer)
     print(f"average number of guesses: {avg_number_guesses}")
     print(f"success rate: {success_rate}")
-    print(f'max tries: {max(trials_list)}')
-    print(f'number of times 6 tries was needed: {count_max_trials}')
+    print(f'max tries: {max_try_answers}')
     print(f"failed answers: {failed_answers_clean}")
