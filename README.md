@@ -8,6 +8,6 @@ run wordle_helper.py
 
 enter information from wordle and press 'get words'
 
-![](https://github.com/TomHessler/wordle_helper/data/Figure 2022-11-02 144712.png)
+![](https://github.com/TomHessler/wordle_helper/data/Figure.png)
 
 average number of guesses: 3.447812906019922
