@@ -1,4 +1,5 @@
 from wordle_helper import suggest_word, result
+import matplotlib.pyplot as plt
 
 def simulate_game(answer, word_list):
     trials = 0
@@ -58,3 +59,10 @@ if __name__ == "__main__":
     print(f"success rate: {success_rate}")
     print(f'max tries: {max_try_answers}')
     print(f"failed answers: {failed_answers_clean}")
+    number_trials = [i+1 for i in range(6)]
+    tries_count = [0 for i in range(6)]
+    for trials in trials_list.values():
+        tries_count[trials-1] +=1
+    plt.bar(number_trials,tries_count)
+    plt.xlabel("Guesses")
+    plt.show()
