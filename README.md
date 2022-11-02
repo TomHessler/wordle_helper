@@ -8,6 +8,6 @@ run wordle_helper.py
 
 enter information from wordle and press 'get words'
 
-![](Figure.png)
+![](data/Figure.png)
 
 average number of guesses: 3.447812906019922
