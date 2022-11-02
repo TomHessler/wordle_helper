@@ -8,11 +8,13 @@ def get_optimal_guess(word_list):
         expected_outcome_for_word[word] = get_expected_outcome(word, word_list)
     return min(expected_outcome_for_word, key = expected_outcome_for_word.get)
 
+
 def get_remaining_words(guess, word_list, answer):
     color_list = result(guess, answer)
     for index, color in enumerate(color_list):
         word_list = color(guess[index], index, word_list)
     return word_list
+
 
 def result(guess, answer):
     result = []
@@ -25,12 +27,14 @@ def result(guess, answer):
             result.append(yellow)
     return result
 
+
 def get_expected_outcome(guess, word_list):
     total = 0
     for answer in word_list:
         if not answer == guess:
             total += len(get_remaining_words(guess, word_list, answer))
     return total / len(word_list)
+
 
 def grey(letter, index, word_list):
     return [word for word in word_list if not letter in word]
@@ -76,12 +80,12 @@ def suggest_word(word_list):
     if len(word_list) == 2309: return 'salet'
     with open('data/best_guess_for_salet_outcome.json') as json_file:
         salet_outcomes = json.load(json_file)
-    if word_list == ['boxer\n', 'corer\n', 'cover\n', 'foyer\n', 'homer\n', 'hover\n', 'joker\n', 'mover\n', 'poker\n']:
-        return 'chevy'
-    if word_list == ['bound\n', 'found\n', 'hound\n', 'mound\n', 'pound\n', 'wound\n']:
-        return 'bumph'
     if str(word_list) in salet_outcomes.keys() and len(word_list)>4:
         return salet_outcomes[str(word_list)]
+    with open('data/outcomes.json') as json_file:
+        outcomes = json.load(json_file)
+    if str(word_list) in outcomes.keys():
+        return outcomes[str(word_list)]
     elif len(word_list) < 300: return get_optimal_guess(word_list)
     word_ranking = rank_words(remove_duplicate_letters(word_list))
     return list(word_ranking.keys())[-1]
